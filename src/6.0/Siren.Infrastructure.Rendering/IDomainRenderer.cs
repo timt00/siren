@@ -5,6 +5,6 @@ namespace Siren.Infrastructure.Rendering
 {
     public interface IDomainRenderer
     {
-        StringBuilder Perform(Universe universe);
+        StringBuilder Perform(Universe universe, bool exportDiagramOnly);
     }
 }

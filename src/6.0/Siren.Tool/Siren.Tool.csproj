@@ -14,6 +14,8 @@
         <Description>Macomi fork of Siren C# POCO to Mermaid ER markdown generation tool</Description>
         <RepositoryUrl>https://github.com/timt00/siren</RepositoryUrl>
         <Title>Macomi Fork of GMan.Siren</Title>
+        <AssemblyVersion></AssemblyVersion>
+        <Version>1.0.2</Version>
     </PropertyGroup>
 
     <ItemGroup>

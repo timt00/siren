@@ -10,13 +10,17 @@
 
         public string DatabaseContext { get; set; }
 
+        public bool ExportDiagramOnly { get; set; }
+
         public override string ToString()
         {
             return
                 $"TestAssemblyFolder: '{TestAssemblyPath}'\r\n" +
                 $"OutputFilePath: '{OutputFilePath}'\r\n" +
                 $"MarkdownAnchor: '{MarkdownAnchor}'\r\n" +
-                $"DatabaseContext: '{DatabaseContext}'\r\n";
+                $"DatabaseContext: '{DatabaseContext}'\r\n" +
+                $"ExportDiagramOnly: '{ExportDiagramOnly}'\r\n";
         }
-    }
+
+	}
 }
