@@ -50,7 +50,7 @@ namespace Siren.Application
 
                 var result =
                     _domainRenderer
-                        .Perform(universe);
+                        .Perform(universe, arguments.ExportDiagramOnly);
 
                 _fileWriter
                     .Perform(

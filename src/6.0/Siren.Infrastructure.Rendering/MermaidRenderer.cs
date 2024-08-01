@@ -16,24 +16,27 @@ namespace Siren.Infrastructure.Rendering
             _logger = logger;
         }
 
-        public StringBuilder Perform(Universe universe)
+        public StringBuilder Perform(Universe universe, bool exportDiagramOnly)
         {
             _logger
                 .LogInformation("Commencing render to Mermaid syntax");
             
             var result = new StringBuilder();
 
-            // Text in file replace header
-            result
-                .AppendLine(MermaidConstants.SirenAnchorStart);
+			if (!exportDiagramOnly)
+			{
+				// Text in file replace header
+				result
+					.AppendLine(MermaidConstants.SirenAnchorStart);
 
-            // Mermaid header
-            result
-                .AppendLine(MermaidConstants.MermaidAnchorStart);
-            
-            // (optional) neutral theme
-            result
-                .AppendLine($"\t{MermaidConstants.MermaidNeutralThemeLine}");
+                // Mermaid header
+                result
+                    .AppendLine(MermaidConstants.MermaidAnchorStart);
+
+                // (optional) neutral theme
+                result
+                    .AppendLine($"\t{MermaidConstants.MermaidNeutralThemeLine}");
+            }
 
             // Header
             result
@@ -94,13 +97,16 @@ namespace Siren.Infrastructure.Rendering
                     );
             }
 
-            // Mermaid footer
-            result
-                .AppendLine(MermaidConstants.MermaidAnchorEnd);
+            if (!exportDiagramOnly)
+            {
+                // Mermaid footer
+                result
+                    .AppendLine(MermaidConstants.MermaidAnchorEnd);
 
-            // Text in file replace footer
-            result
-                .AppendLine(MermaidConstants.SirenAnchorEnd);
+                // Text in file replace footer
+                result
+                    .AppendLine(MermaidConstants.SirenAnchorEnd);
+            }
 
             _logger
                 .LogInformation("Completed render to Mermaid syntax");

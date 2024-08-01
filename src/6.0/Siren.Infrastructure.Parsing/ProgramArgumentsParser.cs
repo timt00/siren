@@ -16,7 +16,7 @@ namespace Siren.Infrastructure.Parsing
 
         public ProgramArguments Parse(string[] args)
         {
-			args = ParseContext(args, out var context);
+			args = ParseContext(args, out var context, out var exportDiagramOnly);
 
 			if (args.Length < 2)
                 throw new Exception("Expected at least 2 arguments");
@@ -40,7 +40,8 @@ namespace Siren.Infrastructure.Parsing
                 OutputFilePath = outputFilePath,
                 MarkdownAnchor = markdownAnchor,
                 DatabaseContext = context,
-            };
+                ExportDiagramOnly = exportDiagramOnly,
+			};
             
             _logger
                 .LogInformation(result.ToString());
@@ -48,19 +49,26 @@ namespace Siren.Infrastructure.Parsing
             return result;
         }
 
-		private string[] ParseContext(string[] args, out string context)
+		private string[] ParseContext(string[] args, out string context, out bool exportDiagramOnly)
 		{
-            var list = args.ToList();
+            exportDiagramOnly = false;
+			var list = args.ToList();
             context = null;
-            for (var i = 0; i < list.Count - 1; ++i)
+            for (var i = 0; i < list.Count; ++i)
             {
-                if (list[i] == "-c" || list[i] == "--context")
+                if (list[i] == "-c" || list[i] == "--context" && i < list.Count - 1)
                 {
                     context = list[i + 1];
                     list.RemoveAt(i);
 					list.RemoveAt(i);
-                    break;
+                    --i;
 				}
+                else if (list[i] == "-d" || list[i] == "--diagramOnly")
+                {
+                    exportDiagramOnly = true;
+                    list.RemoveAt(i);
+                    --i;
+                }
 			}
             return list.ToArray();
 		}
